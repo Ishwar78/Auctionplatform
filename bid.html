@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Your Bid</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .bid-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .bid-section {
+            flex: 3;
+            padding: 20px;
+        }
+
+        .sidebar {
+            flex: 1;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 10px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .carousel img {
+    width: 50%; 
+    height: auto;
+    max-height: 200px; 
+    border-radius: 10px;
+}
+
+
+        .carousel-nav {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .carousel-nav button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="assets/images/bid.jpeg" alt="Auction Logo">
+            <h1>Online Auction</h1>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="auction.html">Auctions</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="bid-container">
+        <!-- Left Section: Product Details -->
+        <section class="bid-section">
+            <h2>Bid for <span id="itemName">Item</span></h2>
+            
+            <!-- Image Carousel -->
+            <div class="carousel">
+                <img id="itemImage" src="" alt="Auction Item">
+                <div class="carousel-nav">
+                    <!-- <button onclick="prevImage()">&#10094;</button>
+                    <button onclick="nextImage()">&#10095;</button> -->
+                </div>
+            </div>
+
+            <p>Current Bid: <strong>$<span id="itemPrice"></span></strong></p>
+            <p>Auction Time Left: <strong id="auctionTimer">00:00:00</strong></p>
+            
+            <!-- Bid Input -->
+            <input type="number" id="bidAmount" placeholder="Enter your bid">
+            <button onclick="placeBid()" class="bid-button">Place Bid</button>
+            <button onclick="addToWatchlist()" class="watchlist-button">Add to Watchlist</button>
+        </section>
+
+        <!-- Right Section: Sidebar -->
+        <aside class="sidebar">
+            <h3>Bid Price History</h3>
+            <ul id="bidHistory">
+                <li>No bids yet</li>
+            </ul>
+
+            <h3>Watchlist</h3>
+            <ul id="watchlist">
+                <li>No items added</li>
+            </ul>
+        </aside>
+    </div>
+ <!-- Footer -->
+ <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <p>We provide a secure and transparent platform for online auctions.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="auction.html">Auctions</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email:i8033421@gmail.com</p>
+            <p>Phone: +91 (905) 386-0397</p>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 Auction Platform | All Rights Reserved</p>
+</footer>
+
+    <script>
+       let bidHistory = JSON.parse(localStorage.getItem("bidHistory")) || [];
+let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+let images = [];
+let currentImageIndex = 0;
+let auctionEndTime = new Date().getTime() + (60 * 60 * 1000); // 1 hour from now
+
+// Function to get URL parameters
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        name: params.get('name') || 'Unknown Item',
+        image: params.get('image') || 'assets/images/default.png',
+        price: params.get('price') || localStorage.getItem("currentBidPrice") || '0'
+    };
+}
+
+// Load item details on page load
+function loadBidPage() {
+    const item = getQueryParams();
+    document.getElementById("itemName").innerText = item.name;
+    document.getElementById("itemImage").src = item.image;
+    document.getElementById("itemPrice").innerText = item.price;
+
+    // Load stored bid history and watchlist
+    updateBidHistory();
+    updateWatchlist();
+
+    // Load dummy additional images for carousel
+    images = [
+        item.image,
+        "assets/images/sample1.jpeg",
+        "assets/images/sample2.jpeg"
+    ];
+}
+
+// Function to place a bid
+function placeBid() {
+    let newBid = document.getElementById("bidAmount").value;
+    let currentPrice = document.getElementById("itemPrice").innerText;
+
+    if (newBid && newBid > currentPrice) {
+        bidHistory.unshift("$" + newBid);
+        document.getElementById("itemPrice").innerText = newBid;
+
+        // Save to localStorage
+        localStorage.setItem("bidHistory", JSON.stringify(bidHistory));
+        localStorage.setItem("currentBidPrice", newBid);
+
+        updateBidHistory();
+        alert("Your bid of $" + newBid + " has been placed!");
+    } else {
+        alert("Enter a valid bid higher than the current price.");
+    }
+}
+
+// Function to update bid history
+function updateBidHistory() {
+    let bidList = document.getElementById("bidHistory");
+    bidList.innerHTML = "";
+    bidHistory.forEach(bid => {
+        let li = document.createElement("li");
+        li.textContent = bid;
+        bidList.appendChild(li);
+    });
+}
+
+// Function to add item to watchlist
+function addToWatchlist() {
+    let itemName = document.getElementById("itemName").innerText;
+    if (!watchlist.includes(itemName)) {
+        watchlist.push(itemName);
+        
+        // Save to localStorage
+        localStorage.setItem("watchlist", JSON.stringify(watchlist));
+
+        updateWatchlist();
+        alert(itemName + " added to watchlist!");
+    } else {
+        alert("Item already in watchlist.");
+    }
+}
+
+// Function to update watchlist
+function updateWatchlist() {
+    let watchListElement = document.getElementById("watchlist");
+    watchListElement.innerHTML = "";
+    watchlist.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        watchListElement.appendChild(li);
+    });
+}
+
+// Auction countdown timer
+function updateAuctionTimer() {
+    let now = new Date().getTime();
+    let timeLeft = auctionEndTime - now;
+    let hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+    let seconds = Math.floor((timeLeft / 1000) % 60);
+    document.getElementById("auctionTimer").innerText = 
+        `${hours}:${minutes}:${seconds}`;
+    
+    if (timeLeft < 0) {
+        document.getElementById("auctionTimer").innerText = "Auction Ended";
+    }
+}
+
+setInterval(updateAuctionTimer, 1000); // Update every second
+
+// Image Carousel Functions
+function prevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    document.getElementById("itemImage").src = images[currentImageIndex];
+}
+
+function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    document.getElementById("itemImage").src = images[currentImageIndex];
+}
+
+// Load details on page load
+window.onload = loadBidPage;
+
+    </script>
+
+   
+</body>
+</html>

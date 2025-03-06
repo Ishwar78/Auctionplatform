@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Auction Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* Login Page Styles */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-field span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.login-links {
+    margin-top: 10px;
+}
+
+.login-links a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+  
+    </style>
+    <!-- <script defer src="script.js"></script> -->
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Auction Logo">
+            <h1>Online Auction</h1>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="auctions.html">Auctions</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="active">Login</a>
+        </nav>
+    </header>
+
+    <!-- Login Section -->
+    <section class="login-container">
+        <h2>Login to Your Account</h2>
+        <form action="dashboard.html" method="post">
+            <input type="text" name="username" placeholder="Username or Email" required>
+            <div class="password-field">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <span id="togglePassword">👁</span>
+            </div>
+            <button type="submit">Login</button>
+            <div class="login-links">
+                <a href="forgot-password.html">Forgot Password?</a>
+                <span> | </span>
+                <a href="register.html">Create an Account</a>
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We provide a secure and transparent platform for online auctions.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="auctions.html">Auctions</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@auctionplatform.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+            </div>
+        </div>
+        <p class="footer-bottom">&copy; 2025 Auction Platform | All Rights Reserved</p>
+    </footer>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", function () {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePassword.textContent = "🙈";
+        } else {
+            passwordInput.type = "password";
+            togglePassword.textContent = "👁";
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>

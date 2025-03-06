@@ -1,0 +1,200 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    padding: 15px 10%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.login-btn {
+    background: white;
+    color: #007bff;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    background: url('assets/images/book2.jpg') no-repeat center center/cover;
+    padding: 80px 10%;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 36px;
+}
+
+.cta-button {
+    background: #ffcc00;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+/* Auction List */
+.auction-list {
+    padding: 50px 10%;
+}
+
+.auction-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.auction-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+
+.auction-item img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.bid-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* How It Works */
+.how-it-works {
+    background: #f1f1f1;
+    padding: 50px 10%;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.step {
+    text-align: center;
+    width: 200px;
+}
+
+.step img {
+    width: 80px;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    padding: 30px 10%;
+    margin-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-section {
+    width: 30%;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+} 
+.footer-section {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-top: 3px solid #f39c12;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-icons a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1);
+}
