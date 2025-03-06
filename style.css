@@ -15,6 +15,7 @@ header {
     background: #007bff;
     color: white;
     padding: 15px 10%;
+    position: relative;
 }
 
 .logo {
@@ -27,11 +28,52 @@ header {
     margin-right: 10px;
 }
 
+nav {
+    display: flex;
+    gap: 15px;
+}
+
 nav a {
     color: white;
     text-decoration: none;
-    margin: 0 15px;
     font-weight: bold;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #007bff;
+        text-align: center;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav a {
+        padding: 10px;
+        display: block;
+        border-top: 1px solid white;
+    }
 }
 
 .login-btn {
