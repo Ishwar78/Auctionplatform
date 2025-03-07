@@ -6,8 +6,74 @@
     <title>Auction Items - Online Auction</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; }
-        header { background-color: #007bff; color: white; padding: 15px; text-align: center; }
-        header nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 18px; }
+        /* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    padding: 15px 10%;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #007bff;
+        text-align: center;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav a {
+        padding: 10px;
+        display: block;
+        border-top: 1px solid white;
+    }
+}
         .auction-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 30px; }
         .auction-item { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; }
         .auction-item img { width: 100%; border-radius: 10px; }
@@ -89,10 +155,14 @@ footer {
 </head>
 <body>
     <header>
-        <h1>Online Auction</h1>
-        <nav>
+        <div class="logo">
+            <img src="assets/images/bid.jpeg" alt="Auction Logo">
+            <h1>Online Auction</h1>
+        </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <nav id="nav-menu">
             <a href="index.html">Home</a>
-            <a href="auction.html" class="active">Auctions</a>
+            <a href="auction.html">Auctions</a>
             <a href="how-it-works.html">How It Works</a>
             <a href="contact.html">Contact</a>
         </nav>
@@ -137,6 +207,13 @@ footer {
     </footer>
 
     <script>
+          
+ function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+   
         const items = [
             { name: "Smart Watch", image: "assets/images/electronic8.jpeg", price: 200 },
             { name: "Laptop", image: "assets/images/card7.png", price: 800 },
